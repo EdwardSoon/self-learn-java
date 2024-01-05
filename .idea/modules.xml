@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AlgoSorts/BubbleSort/BubbleSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/BubbleSort/BubbleSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/CompareLexiString/CompareLexiString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/CompareLexiString/CompareLexiString.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/ConvertString/ConvertString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/ConvertString/ConvertString.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/CurrencyFormatter/CurrencyFormatter.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/CurrencyFormatter/CurrencyFormatter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DataStructuresImplementation/DataStructuresImplementation.iml" filepath="$PROJECT_DIR$/DataStructuresImplementation/DataStructuresImplementation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Recursion/Factorial/Factorial.iml" filepath="$PROJECT_DIR$/Recursion/Factorial/Factorial.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Recursion/Fibonacci/Fibonacci.iml" filepath="$PROJECT_DIR$/Recursion/Fibonacci/Fibonacci.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/GetDay/GetDay.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/GetDay/GetDay.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlgoSorts/InsertionSort/InsertionSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/InsertionSort/InsertionSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Java.iml" filepath="$PROJECT_DIR$/.idea/Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/Tests/LinkedList/LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/LongestSubStringArrayList/LongestSubStringArrayList.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/LongestSubStringArrayList/LongestSubStringArrayList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/LongestSubStringHashMap (not yet done)/LongestSubStringHashMap (not yet done).iml" filepath="$PROJECT_DIR$/LeetCodeQuests/LongestSubStringHashMap (not yet done)/LongestSubStringHashMap (not yet done).iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/MaxProductofTwo/MaxProductofTwo.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/MaxProductofTwo/MaxProductofTwo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlgoSorts/MergeSort/MergeSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/MergeSort/MergeSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/MergeSort, ArrayList, Arrays Sort/MergeSort, ArrayList, Arrays Sort.iml" filepath="$PROJECT_DIR$/Tests/MergeSort, ArrayList, Arrays Sort/MergeSort, ArrayList, Arrays Sort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/Palindrome/Palindrome.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/Palindrome/Palindrome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Queue and Stack/Queue/Queue.iml" filepath="$PROJECT_DIR$/Queue and Stack/Queue/Queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AlgoSorts/QuickSort/QuickSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/QuickSort/QuickSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/SecondTest/SecondTest.iml" filepath="$PROJECT_DIR$/Tests/SecondTest/SecondTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/SecondTestAL/SecondTestAL.iml" filepath="$PROJECT_DIR$/Tests/SecondTestAL/SecondTestAL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Queue and Stack/Stack/Stack.iml" filepath="$PROJECT_DIR$/Queue and Stack/Stack/Stack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/SubstringWithoutSubstringMethod/SubstringWithoutSubstringMethod.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/SubstringWithoutSubstringMethod/SubstringWithoutSubstringMethod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/Test2/Test2.iml" filepath="$PROJECT_DIR$/Tests/Test2/Test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/TestArrayList/TestArrayList.iml" filepath="$PROJECT_DIR$/Tests/TestArrayList/TestArrayList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/TestHashMap/TestHashMap.iml" filepath="$PROJECT_DIR$/Tests/TestHashMap/TestHashMap.iml" />
+    </modules>
+  </component>
+</project>
