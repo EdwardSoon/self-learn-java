@@ -21,6 +21,7 @@
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/Palindrome/Palindrome.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/Palindrome/Palindrome.iml" />
       <module fileurl="file://$PROJECT_DIR$/Queue and Stack/Queue/Queue.iml" filepath="$PROJECT_DIR$/Queue and Stack/Queue/Queue.iml" />
       <module fileurl="file://$PROJECT_DIR$/AlgoSorts/QuickSort/QuickSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/QuickSort/QuickSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ReverseLinkedList/ReverseLinkedList.iml" filepath="$PROJECT_DIR$/ReverseLinkedList/ReverseLinkedList.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tests/SecondTest/SecondTest.iml" filepath="$PROJECT_DIR$/Tests/SecondTest/SecondTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tests/SecondTestAL/SecondTestAL.iml" filepath="$PROJECT_DIR$/Tests/SecondTestAL/SecondTestAL.iml" />
       <module fileurl="file://$PROJECT_DIR$/Queue and Stack/Stack/Stack.iml" filepath="$PROJECT_DIR$/Queue and Stack/Stack/Stack.iml" />
