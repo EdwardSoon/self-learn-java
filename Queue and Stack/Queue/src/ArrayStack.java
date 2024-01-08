@@ -13,12 +13,11 @@
  */
 
 
-import java.util.HashMap;
 public class ArrayStack {
     // attributes
     private int[] stack;
     private int top;
-    private int size;
+    int size;
     private final int capacity;
 
     // constructor method
@@ -40,14 +39,16 @@ public class ArrayStack {
         size ++;
     }
 
-    public void pop(){
+    public int pop(){
         if(isEmpty()){
             System.out.println("The stack is underflow. Nothing to be popped.");
-            return;
+            return Integer.MIN_VALUE;
         }
         System.out.println(stack[top] + " is removed.");
+        int removed = stack[top];
         top = ((((top-1)%capacity)+capacity)%capacity); // to keep going back around the index given the array's capacity even if it is negative
         size --;
+        return removed;
     }
 
     public boolean isEmpty(){
