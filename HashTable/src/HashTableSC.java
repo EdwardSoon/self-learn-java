@@ -1,6 +1,6 @@
 /* IMPLEMENTATION OF HASHTABLE: SEPARATE CHAINING
    Characteristics:
-   - resizable array (yet to be done)
+   - resizable array
    - can handle collisions (separate chaining)
    Main Operations:
    - add key-value pairs
@@ -11,22 +11,19 @@
  */
 
 
+import java.awt.desktop.SystemEventListener;
 
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-
-
-public class HashTable {
+public class HashTableSC {
     // attributes
     Node[] arrNode;
     int capacity; // array max size
 
-    HashTable(int capacity) {
+    HashTableSC(int capacity) {
         this.capacity = capacity;
         arrNode = new Node[this.capacity];
     }
 
-    class Node {
+    static class Node {
         Integer key;
         Integer data;
         Node next;
@@ -57,6 +54,7 @@ public class HashTable {
             curr = curr.next;
         }
         curr.next = new_node; // add new node to .next until it traverse to .next is null
+//        System.out.println("The current Load Factor: " + loadFactor(this));  // optional to keep track of the load factor
     }
 
     public Integer get(int key) {
@@ -85,8 +83,15 @@ public class HashTable {
             return;
         }
 
-        Node curr = arrNode[index];
-        Node prev = null;
+        //base case
+        if (arrNode[index].key.equals(key)){
+            arrNode[index] = arrNode[index].next;
+            return;
+        }
+
+        Node prev = arrNode[index];
+        Node curr = prev.next;
+
         while (curr.next != null && !curr.key.equals(key)) {
             prev = curr;
             curr = curr.next;
@@ -99,21 +104,62 @@ public class HashTable {
     // to improve to printing key-value
     public void printHashTable() {
         for (Node node : arrNode) {
-            if (node == null) {
+            if(node == null){
+                System.out.println("null");
                 continue;
             }
-            Node temp = node;
-            while (temp != null) {
-                System.out.print(temp.key + "=" + temp.data + " ");
-                temp = temp.next;
+            while (node != null) {
+                System.out.print(node.key + "=" + node.data + " ");
+                node = node.next;
             }
             System.out.println();
         }
     }
 
+    public static double loadFactor(HashTableSC ht){
+        double count = 0;
+        double arrLen = ht.arrNode.length;
+        for (Node node: ht.arrNode){
+            while(node != null){
+                count ++;
+                node = node.next;
+            }
+        }
+        return count / arrLen;
+    }
+
+    // we will need to rehash no matter the capacity grows or shrinks because we want them to more uniformly allocate
+    // previous capacity might not have a good uniform hashing
+    public void resize(int newCapacity){
+        Node[] newArr = new Node[newCapacity];
+        this.capacity = newCapacity; // to use the new hash function, capacity needs to be changed first
+        int newIndex;
+        for (Node node : this.arrNode){
+            while (node != null){
+                newIndex = hashFunction(node.key);  // rehashing for every key-value pairs
+                Node next = null;
+                // add the same way as Separating Chain (the way that linkedlist will be added)
+                if(newArr[newIndex] == null){
+                    newArr[newIndex] = node;
+                    next = node.next;
+                    newArr[newIndex].next = null;      // disconnect the next node, rehashing might allocate to different index
+                }
+                else{
+                    Node temp = newArr[newIndex];
+                    while(temp.next != null){
+                        temp = temp.next;
+                    }
+                    temp.next = node;
+                }
+                node = next;
+            }
+        }
+        this.arrNode = newArr;          // to let every instantiated instance to be able to access new resized Array
+    }
+
 
     public static void main(String[] args) {
-        HashTable ht = new HashTable(5);
+        HashTableSC ht = new HashTableSC(5);
 //        System.out.println(ht.get(14));
         ht.add(14, 140);
         ht.add(12, 120);
@@ -122,12 +168,19 @@ public class HashTable {
         ht.add(0, 10);
         ht.add(4, 40);
         ht.add(2, 30);
-        System.out.println(ht.get(14));
-        System.out.println(ht.get(15));
-        System.out.println(ht.get(20));
+//        System.out.println(ht.get(14));
+//        System.out.println(ht.get(15));
+//        System.out.println(ht.get(20));
         ht.deleteByKey(20);
-        System.out.println(ht.get(20));
-        ht.deleteByKey(14);
+//        System.out.println(ht.get(20));
+//        ht.deleteByKey(14);
         ht.printHashTable();
+//        System.out.println();
+//        System.out.println("After resize:");
+//        System.out.println(loadFactor(ht));
+
+//        ht.resize(2);
+//        ht.printHashTable();
+
     }
 }
