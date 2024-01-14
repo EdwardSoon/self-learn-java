@@ -6,14 +6,14 @@
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/CompareLexiString/CompareLexiString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/CompareLexiString/CompareLexiString.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/ConvertString/ConvertString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/ConvertString/ConvertString.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/CurrencyFormatter/CurrencyFormatter.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/CurrencyFormatter/CurrencyFormatter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DataStructuresImplementation/DataStructuresImplementation.iml" filepath="$PROJECT_DIR$/DataStructuresImplementation/DataStructuresImplementation.iml" />
       <module fileurl="file://$PROJECT_DIR$/Recursion/Factorial/Factorial.iml" filepath="$PROJECT_DIR$/Recursion/Factorial/Factorial.iml" />
       <module fileurl="file://$PROJECT_DIR$/Recursion/Fibonacci/Fibonacci.iml" filepath="$PROJECT_DIR$/Recursion/Fibonacci/Fibonacci.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/GetDay/GetDay.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/GetDay/GetDay.iml" />
       <module fileurl="file://$PROJECT_DIR$/HashTable/HashTable.iml" filepath="$PROJECT_DIR$/HashTable/HashTable.iml" />
       <module fileurl="file://$PROJECT_DIR$/AlgoSorts/InsertionSort/InsertionSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/InsertionSort/InsertionSort.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Java.iml" filepath="$PROJECT_DIR$/.idea/Java.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Tests/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/Tests/LinkedList/LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/LinkedList/LinkedList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tests/LinkedList/LinkedListforReverse.iml" filepath="$PROJECT_DIR$/Tests/LinkedList/LinkedListforReverse.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/LongestSubStringArrayList/LongestSubStringArrayList.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/LongestSubStringArrayList/LongestSubStringArrayList.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/LongestSubStringHashMap (not yet done)/LongestSubStringHashMap (not yet done).iml" filepath="$PROJECT_DIR$/LeetCodeQuests/LongestSubStringHashMap (not yet done)/LongestSubStringHashMap (not yet done).iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/MaxProductofTwo/MaxProductofTwo.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/MaxProductofTwo/MaxProductofTwo.iml" />
