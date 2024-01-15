@@ -85,7 +85,7 @@ public class BST {
         }
 
         if (data > currNode.data){
-            currNode.right = insertBinary(currNode.right, data);  // currNode.right calls own method to get its value in the next call. If the node.right is null then we will assign new_node; If node.right already existed, then we will return node.right, (before that we will call recursively if we havent find the node that is null).
+            currNode.right = insertBinary(currNode.right, data);  // currNode.right calls own method to get its value in the next call. If the node.right is null then we will assign new_node; If node.right already existed, then we will return node.right, (before that we will call recursively if we havent findMyCode the node that is null).
         }
         else if (data < currNode.data){
             currNode.left = insertBinary(currNode.left, data);
@@ -98,42 +98,54 @@ public class BST {
         this.root = insertBinary(this.root, data);  // thus here we can assign rootNode to the returned value
     }
 
-    /* binaryFind
+    /* binaryFindMyCode
      - traversing the node from the input Node by using the data input
-     - to find the target data, if found then return the Node (not necessarily final Node)
+     - to findMyCode the target data, if found then return the Node (not necessarily final Node)
      - if non-exist then return final Node
      */
-    private Node binaryFind(Node currNode, int data){
+    private Node binaryFindMyCode(Node currNode, int data){
+        // base case
+        if(currNode == null){
+            return null;    // not found
+        }
+        else if (data == currNode.data){
+            return currNode;
+        }
+
+        if (data > currNode.data){
+            return binaryFindMyCode(currNode.right, data);
+        }
+        else{ // data <= currNode.data
+            return binaryFindMyCode(currNode.left, data);
+        }
+    }
+
+    private Node binaryFindMyCode2(Node currNode, int data){
         // base case
         if (data == currNode.data){
-//            System.out.println(data + " exists.");
             return currNode;
         }
 
         if (data > currNode.data){
             if (currNode.right != null){
-                return binaryFind(currNode.right, data);
+            return binaryFindMyCode(currNode.right, data);
             }
-//            System.out.println(data + " not found.");
             return null;
-
         }
         else{ // data <= currNode.data
             if (currNode.left != null){
-                return binaryFind(currNode.left, data);
-            }
-//            System.out.println(data + " not found.");
+            return binaryFindMyCode(currNode.left, data);
+        }
             return null;
         }
-
     }
 
-    public boolean find(int data){
-        return binaryFind(this.root, data) != null; // this is better than binaryFind(this.root, data).data == data;
+    public boolean findMyCode(int data){
+        return binaryFindMyCode(this.root, data) != null; // this is better than binaryFindMyCode(this.root, data).data == data;
     }
 
     // traverse and having tracked previous node in order to adjust the prev node connection
-    private Node binaryDel (Node prevNode, Node currNode, int dataDel){
+    private Node binaryDelMyCode(Node prevNode, Node currNode, int dataDel){
         if (currNode.data == dataDel){
             if (currNode.right != null && currNode.left != null){
                 if(currNode.data > prevNode.data){
@@ -176,21 +188,21 @@ public class BST {
 
         else if (dataDel > currNode.data){
             if (currNode.right != null){
-                return binaryDel(currNode, currNode.right, dataDel);
+                return binaryDelMyCode(currNode, currNode.right, dataDel);
             }
             return null;
 
         }
         else { //dataDel < currNode.data
             if (currNode.left != null) {
-                return binaryDel(currNode, currNode.left, dataDel);
+                return binaryDelMyCode(currNode, currNode.left, dataDel);
             }
             return null;
         }
     }
 
     /* delete
-     - can use find to try to find if the element is in it from root
+     - can use findMyCode to try to findMyCode if the element is in it from root
      - if it is then do operation as follows:
         -- if the root.data got deleted:
           a) move either left or right to be the root (thus the entire subtree is moved to become main tree)
@@ -202,7 +214,7 @@ public class BST {
             b.2) (same like root.data got deleted) then move the entire toDel.left/right to the most bottom of left/right
           c) if both side null, cna pull any
      */
-    public void delete(int data){
+    public void deleteMyCode(int data){
         // root case
         if (this.root.data == data){
             if(root.right != null && root.left != null){
@@ -224,12 +236,12 @@ public class BST {
             return;
         }
 
-        if (find(data)){
+        if (findMyCode(data)){
             if (data > root.data){
-                binaryDel(root, root.right, data);
+                binaryDelMyCode(root, root.right, data);
             }
             else { // data <= root.data
-                binaryDel(root, root.left, data);
+                binaryDelMyCode(root, root.left, data);
             }
         }
         else {
@@ -237,58 +249,65 @@ public class BST {
         }
     }
 
+    /* traverse from min to max
+
+     */
+    public void inOrder(){
+
+    }
+
     public static void main(String[] args) {
         BST test = new BST();
 
-//        test.insertMyCode(2);
-//        test.insertMyCode(6);
-//        test.insertMyCode(4);
-//        test.insertMyCode(1);
-//        test.insertMyCode(3);
-//        test.insertMyCode(7);
-//        test.insertMyCode(8);
-//        test.insertMyCode(0);
-//        test.insertMyCode(-1);
+        test.insertMyCode(2);
+        test.insertMyCode(6);
+        test.insertMyCode(4);
+        test.insertMyCode(1);
+        test.insertMyCode(3);
+        test.insertMyCode(7);
+        test.insertMyCode(8);
+        test.insertMyCode(0);
+        test.insertMyCode(-1);
 
-        test.insert(3);
-        test.insert(1);
-        test.insert(2);
-        test.insert(5);
-        test.insert(0);
-        test.insert(-1);
-        test.insert(7);
-        test.insert(6);
+//        test.insert(3);
+//        test.insert(1);
+//        test.insert(2);
+//        test.insert(5);
+//        test.insert(0);
+//        test.insert(-1);
+//        test.insert(7);
+//        test.insert(6);
 
 
 
-        System.out.println("root:" + test.root.data);
-        System.out.println("r:" + test.root.right.data + " root:" + test.root.data );
-//        System.out.println("rl:" + test.root.right.left.data);
-//        System.out.println("rll:" + test.root.right.left.left.data);
-        System.out.println("l:" + test.root.left.data);
-        System.out.println("rr:" + test.root.right.right.data);
-//        System.out.println("rrr:" + test.root.right.right.right.data);
-        System.out.println("ll:" + test.root.left.left.data);
-        System.out.println("lr:" + test.root.left.right.data);
-        System.out.println("lll:" + test.root.left.left.left.data);
-        System.out.println("rrl:" + test.root.right.right.left.data);
-//        System.out.println(test.find(1));
-//        System.out.println(test.find(0));
-//        System.out.println(test.find(-1));
-//        System.out.println(test.find(2));
-//        System.out.println(test.find(3));
-//        System.out.println(test.find(4));
-//        System.out.println(test.find(5));
-//        System.out.println(test.find(6));
-//        System.out.println(test.find(7));
-//        System.out.println(test.find(8));
-//        System.out.println(test.find(9));
-//        System.out.println(test.find(10));
-//
-//        test.delete(3);
-//        System.out.println(test.find(2));
-//        test.delete(2);
-//        System.out.println(test.find(2));
+//        System.out.println("root:" + test.root.data);
+//        System.out.println("r:" + test.root.right.data + " root:" + test.root.data );
+////        System.out.println("rl:" + test.root.right.left.data);
+////        System.out.println("rll:" + test.root.right.left.left.data);
+//        System.out.println("l:" + test.root.left.data);
+//        System.out.println("rr:" + test.root.right.right.data);
+////        System.out.println("rrr:" + test.root.right.right.right.data);
+//        System.out.println("ll:" + test.root.left.left.data);
+//        System.out.println("lr:" + test.root.left.right.data);
+//        System.out.println("lll:" + test.root.left.left.left.data);
+//        System.out.println("rrl:" + test.root.right.right.left.data);
+        System.out.println(test.findMyCode(1));
+        System.out.println(test.findMyCode(0));
+        System.out.println(test.findMyCode(-1));
+        System.out.println(test.findMyCode(2));
+        System.out.println(test.findMyCode(3));
+        System.out.println(test.findMyCode(4));
+        System.out.println(test.findMyCode(5));
+        System.out.println(test.findMyCode(6));
+        System.out.println(test.findMyCode(7));
+        System.out.println(test.findMyCode(8));
+        System.out.println(test.findMyCode(9));
+        System.out.println(test.findMyCode(10));
+
+        test.deleteMyCode(3);
+        System.out.println(test.findMyCode(2));
+        test.deleteMyCode(2);
+        System.out.println(test.findMyCode(2));
 
     }
 }
