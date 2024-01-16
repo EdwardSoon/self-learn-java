@@ -16,7 +16,7 @@ Extra: handle same value
 
 public class BST {
     Node root;
-    static class Node {    // static: because no matter what BST object is instantiated, it is always in this way
+    public static class Node {    // static: because no matter what BST object is instantiated, it is always in this way
         int data;
         Node left;
         Node right;
@@ -103,7 +103,7 @@ public class BST {
      - to findMyCode the target data, if found then return the Node (not necessarily final Node)
      - if non-exist then return final Node
      */
-    private Node binaryFindMyCode(Node currNode, int data){
+    private Node binaryFindMyCode2(Node currNode, int data){
         // base case
         if(currNode == null){
             return null;    // not found
@@ -120,7 +120,7 @@ public class BST {
         }
     }
 
-    private Node binaryFindMyCode2(Node currNode, int data){
+    private Node binaryFindMyCode(Node currNode, int data){
         // base case
         if (data == currNode.data){
             return currNode;
@@ -249,25 +249,102 @@ public class BST {
         }
     }
 
-    /* traverse from min to max
+    /* Lessons learned to be more efficient:
+     - i am forced to only solve the left sub-tree because i began with `if(node.left != null);`
+       -- i should have begun with the Root node itself, instead of starting with LEFT SUBTREE of Root, it will definitely be hard for right subtree from root later.
+       -- setting the base case as `if(node!=null)` which checks for every node, if null then end the function
+     - node = node.left; minToMaxLeftMyCode(node); can be simplified to just minToMaxLeftMyCode(node.left)
 
      */
-    public void inOrder(){
-
+    private void minToMaxLeftMyCode(Node node){
+        if (node.left != null){     // no need while because for every node propagated, it will check if there is left Node since we call the function again
+            node = node.left;        // propagates to the left
+            minToMaxLeftMyCode(node);         // reverse the order of output when it propagates to the end
+            System.out.print(" " + node.data);      // from most left
+            while (node.right != null){     // must be while (if cannot cover all cases): there are cases having subtree of many right Nodes, we need to check all of them
+                node = node.right;          // if yes then find node.right
+                minToMaxLeftMyCode(node);             // since it is new node, then go back to check the left, also wanna make it reversed to correct the order of output (right is always bigger number)
+                System.out.print(" " + node.data); // the reversed output from the first call is reversed to the ascending order now to print for the right
+            }
+//            return; // if we are using while loop for the first condition: exit the current function so it doesn't continue to while within the function to prevent duplicates
+        }
     }
+
+    /* traverse from min to max
+      - covering all kind of binary search tree (where some left node is >1 at the subtrees some right node is >1)
+     */
+    public void inOrderMyCode(Node node){
+        if (node != null){
+            minToMaxLeftMyCode(node);
+
+            System.out.print(" " + node.data);
+
+            while (node.right != null){  // to cover the right subtree
+                node = node.right;
+                minToMaxLeftMyCode(node);
+                System.out.print(" " + node.data);
+            }
+        }
+        System.out.println();
+    }
+
+    // [BEST SIMPLIFIED METHOD] traverse from min to max covering all cases
+    public void inOrder (Node node){
+        if(node != null){
+            inOrder(node.left);                 // traverse to most left
+            System.out.print(" " + node.data); // print elements in a reverse manner output
+            inOrder(node.right);                // for every Node traverse to right and check, if != null then it will result traversing to most left again and print from small to big again
+            // for every traversing of right, it is reversing back to the correct order to execute the new function to maintain the correct order as right>left and the more right is bigger
+        }
+    }
+
+    // [BEST SIMPLIFIED METHOD] traverse from max to min covering all cases
+    public void backOrder (Node node){
+        if(node != null){
+            backOrder(node.right);
+            System.out.print(" " + node.data);
+            backOrder(node.left);
+        }
+    }
+
+
 
     public static void main(String[] args) {
         BST test = new BST();
 
-        test.insertMyCode(2);
-        test.insertMyCode(6);
+        test.insertMyCode(15);
         test.insertMyCode(4);
+        test.insertMyCode(9);
+        test.insertMyCode(10);
+        test.insertMyCode(13);
+        test.insertMyCode(11);
+        test.insertMyCode(12);
+        test.insertMyCode(14);
         test.insertMyCode(1);
-        test.insertMyCode(3);
-        test.insertMyCode(7);
         test.insertMyCode(8);
+        test.insertMyCode(7);
+        test.insertMyCode(6);
+        test.insertMyCode(3);
+        test.insertMyCode(2);
         test.insertMyCode(0);
+        test.insertMyCode(-4);
+        test.insertMyCode(-2);
         test.insertMyCode(-1);
+        test.insertMyCode(21);
+        test.insertMyCode(19);
+        test.insertMyCode(20);
+        test.insertMyCode(17);
+        test.insertMyCode(24);
+        test.insertMyCode(-5);
+//        test.insertMyCode(2);
+//        test.insertMyCode();
+//
+//
+//        test.inOrderMyCode(test.root);
+        test.inOrder(test.root);
+        System.out.println();
+        test.backOrder(test.root);
+
 
 //        test.insert(3);
 //        test.insert(1);
@@ -291,23 +368,23 @@ public class BST {
 //        System.out.println("lr:" + test.root.left.right.data);
 //        System.out.println("lll:" + test.root.left.left.left.data);
 //        System.out.println("rrl:" + test.root.right.right.left.data);
-        System.out.println(test.findMyCode(1));
-        System.out.println(test.findMyCode(0));
-        System.out.println(test.findMyCode(-1));
-        System.out.println(test.findMyCode(2));
-        System.out.println(test.findMyCode(3));
-        System.out.println(test.findMyCode(4));
-        System.out.println(test.findMyCode(5));
-        System.out.println(test.findMyCode(6));
-        System.out.println(test.findMyCode(7));
-        System.out.println(test.findMyCode(8));
-        System.out.println(test.findMyCode(9));
-        System.out.println(test.findMyCode(10));
+//        System.out.println(test.findMyCode(1));
+//        System.out.println(test.findMyCode(0));
+//        System.out.println(test.findMyCode(-1));
+//        System.out.println(test.findMyCode(2));
+//        System.out.println(test.findMyCode(3));
+//        System.out.println(test.findMyCode(4));
+//        System.out.println(test.findMyCode(5));
+//        System.out.println(test.findMyCode(6));
+//        System.out.println(test.findMyCode(7));
+//        System.out.println(test.findMyCode(8));
+//        System.out.println(test.findMyCode(9));
+//        System.out.println(test.findMyCode(10));
 
-        test.deleteMyCode(3);
-        System.out.println(test.findMyCode(2));
-        test.deleteMyCode(2);
-        System.out.println(test.findMyCode(2));
+//        test.deleteMyCode(3);
+//        System.out.println(test.findMyCode(2));
+//        test.deleteMyCode(2);
+//        System.out.println(test.findMyCode(2));
 
     }
 }
