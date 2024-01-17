@@ -11,6 +11,8 @@ Behaviours:
  - search / check element existence
  - traverse min to max and max to min
  - count leaves nodes
+ - count no of nodes of kth layer
+ - count
 
 Extra: handle same value
 
@@ -385,21 +387,36 @@ public class BST {
         return leftKLayerNodes + rightKLayerNodes;
     }
 
-    public int countNodesAtKthLayer(Node node, int currLayer, int k){
+    public int countNodesAtKthLayer(Node node, int startLayer, int k){
         if (node == null){
             return 0;
         }
-        if (currLayer == k){  // since all node == null is filtered, then this one surely is node != null
+        if (startLayer == k){  // since all node == null is filtered, then this one surely is node != null
             return 1; // nodes at the right layer then we dont have to further proceed to next layer, thus can exit.
         }
 
         // if node != null and layer !=k
-        int leftKLayerNodes = countNodesAtKthLayer(node.left, currLayer+1, k);
-        int rightKLayerNodes = countNodesAtKthLayer(node.right, currLayer+1, k);
+        int leftKLayerNodes = countNodesAtKthLayer(node.left, startLayer+1, k);  // with currLayer +1 , it will automatically maintain the layer, without needing me to manually make them layer--, as the layer added simultaneously together with traversing down the ndoe
+        int rightKLayerNodes = countNodesAtKthLayer(node.right, startLayer+1, k);
 
         return leftKLayerNodes + rightKLayerNodes;
     }
 
+    /* CALCULATE THE DEPTH OF THE TREE
+     a) can be tracked by inserting the nodes with global variable (but lets avoid that to reduce dependency)
+     b) calculate the traverse a bit like above to keep track the height (layer)
+     Note: traverse all the path to find the longest path then track that
+     */
+    public int heightMyCode(Node node, int startHeight){
+        if (node == null){ // means prev node is the deepest node
+            return (startHeight - 1);  // return the last non-null node's height
+        }
+
+        int leftHeight = heightMyCode(node.left, startHeight+1);
+        int rightHeight = heightMyCode(node.right, startHeight+1);
+
+        return Math.max(leftHeight, rightHeight); // just always take the max of the height between all the left or right subtrees, eventually it will get to the highest height
+    }
 
     public static void main(String[] args) {
         BST test = new BST();
@@ -416,18 +433,17 @@ public class BST {
         test.insertMyCode(1);
         test.insertMyCode(7);
         test.insertMyCode(0);
-        test.insertMyCode(-4);
-        test.insertMyCode(-2);
-        test.insertMyCode(-1);
-        test.insertMyCode(21);
-        test.insertMyCode(19);
-        test.insertMyCode(20);
-        test.insertMyCode(17);
-        test.insertMyCode(24);
-        test.insertMyCode(-5);
-        test.deleteMyCode(10);
+//        test.insertMyCode(-4);
+//        test.insertMyCode(-2);
+//        test.insertMyCode(-1);
+//        test.insertMyCode(21);
+//        test.insertMyCode(19);
+//        test.insertMyCode(20);
+//        test.insertMyCode(17);
+//        test.insertMyCode(24);
+//        test.insertMyCode(-5);
+//        test.deleteMyCode(10);
 //        test.insertMyCode();
-//
 //
 //        test.inOrderMyCode(test.root);
 //        test.inOrder(test.root);
@@ -435,8 +451,9 @@ public class BST {
 //        test.backOrder(test.root);
 //        System.out.println(test.countLeavesMyCode(test.root));
 //        System.out.println(test.countLeaves(test.root));
-        System.out.println(test.countNodesAtKthLayerMyCode(test.root, 7));
-        System.out.println(test.countNodesAtKthLayer(test.root, 7, 1));
+//        System.out.println(test.countNodesAtKthLayerMyCode(test.root, 7));
+//        System.out.println(test.countNodesAtKthLayer(test.root, 7, 1));
+        System.out.print(test.heightMyCode(test.root, 1));
 
 
 //        test.insert(3);
