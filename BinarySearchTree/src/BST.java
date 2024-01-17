@@ -9,6 +9,8 @@ Behaviours:
  - insert
  - delete
  - search / check element existence
+ - traverse min to max and max to min
+ - count leaves nodes
 
 Extra: handle same value
 
@@ -16,6 +18,7 @@ Extra: handle same value
 
 public class BST {
     Node root;
+    int leavesCounter;
     public static class Node {    // static: because no matter what BST object is instantiated, it is always in this way
         int data;
         Node left;
@@ -27,13 +30,19 @@ public class BST {
         }
     }
 
+    BST(){
+        root = null;
+        leavesCounter = 0;
+    }
+
     /* binaryInsertMyCode method
      - for traversing binary from the Root node to the final node
      - for inserting mainly (also possibly used at other method)
      - will return the final Node (for all the recursive function calls to exit)
      */
     /* Things learned: (refer to insert() vs insetMyCode() )
-      - if (curr_node.right/left != null) can turn into curr_node == null as base case instead, since the right/left will be curr_node on the next call
+      - always think about how to deal with root case not by another statement but possibly together as a general as root here should be the base case
+        -- if (curr_node.right/left != null) can turn into curr_node == null as base case instead, since the right/left will be curr_node on the next call
       - can utilise how every call of functions returned is actually very useful, instead of just the final return results to replace all the calls' results (which is what i did here)
       In short, chatgpt says both are equally efficient, but mine is more readable.
      */
@@ -299,12 +308,29 @@ public class BST {
     }
 
     // [BEST SIMPLIFIED METHOD] traverse from max to min covering all cases
-    public void backOrder (Node node){
+    public void backOrderMyCode(Node node){
         if(node != null){
-            backOrder(node.right);
+            backOrderMyCode(node.right);
             System.out.print(" " + node.data);
-            backOrder(node.left);
+            backOrderMyCode(node.left);
         }
+    }
+
+
+    /* COUNT OF LEAVES NODES
+     -- traversing all the nodes and check their right and left
+     */
+
+    public int countLeavesMyCode(Node node) {
+
+        if (node != null){
+            countLeavesMyCode(node.left);         // recursively traverse to the most left
+            if(node.right == null && node.left == null){ // check each node during the traversal from bottom to top left
+                return this.leavesCounter ++;    // exit the current function once leave is found and ++ the leaveCounter
+            }
+            countLeavesMyCode(node.right);        // recursively check all the nodes' right and their lefts
+        }
+        return this.leavesCounter;          // this responsible for returning the FINAL value to Main
     }
 
 
@@ -336,14 +362,15 @@ public class BST {
         test.insertMyCode(17);
         test.insertMyCode(24);
         test.insertMyCode(-5);
-//        test.insertMyCode(2);
+        test.deleteMyCode(10);
 //        test.insertMyCode();
 //
 //
 //        test.inOrderMyCode(test.root);
-        test.inOrder(test.root);
-        System.out.println();
-        test.backOrder(test.root);
+//        test.inOrder(test.root);
+//        System.out.println();
+//        test.backOrder(test.root);
+        System.out.println(test.countLeavesMyCode(test.root));
 
 
 //        test.insert(3);
