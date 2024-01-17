@@ -319,6 +319,11 @@ public class BST {
 
     /* COUNT OF LEAVES NODES
      -- traversing all the nodes and check their right and left
+
+     Things learned:
+      - my method involved having global Counter
+        -- while the countLeaves it provided has a cleaner approach where it is not involving global counter
+         --- without global counter, we can fix/change our code easier whenever needed.
      */
 
     public int countLeavesMyCode(Node node) {
@@ -333,6 +338,24 @@ public class BST {
         return this.leavesCounter;          // this responsible for returning the FINAL value to Main
     }
 
+    public int countLeaves(Node node) {
+        if (node == null) {
+            return 0; // Base case: no leaves for a null node
+        }
+
+        if (node.left == null && node.right == null) {
+            return 1; // Node is a leaf
+        }
+        // traversal of all nodes to check if there are leaves Nodes
+        // left/rightLeaves of a subtree get initialised at the last statement return left + right
+        int leftLeaves = countLeaves(node.left);        // repeatedly traverse node.left and get the number of nodes in the root left subtree (where there are more left and right subtrees will be summed by the statement below)
+        int rightLeaves = countLeaves(node.right);      // repeatedly traverse node.right for each node.left of root (from bottom to top) and traverse each node.right.left too
+
+        return leftLeaves + rightLeaves; // Sum of leaves in left and right subtrees then at last sum left + right for the main tree
+        // (e.g: leftLeaves of root are summed by leafLeaves and rightLeaves of the subtrees inside left big subtree of root)
+    }
+
+//    public int countNodesMyCode(int )
 
 
     public static void main(String[] args) {
@@ -344,25 +367,25 @@ public class BST {
         test.insertMyCode(10);
         test.insertMyCode(13);
         test.insertMyCode(11);
-        test.insertMyCode(12);
+//        test.insertMyCode(12);
         test.insertMyCode(14);
-        test.insertMyCode(1);
-        test.insertMyCode(8);
-        test.insertMyCode(7);
-        test.insertMyCode(6);
-        test.insertMyCode(3);
-        test.insertMyCode(2);
-        test.insertMyCode(0);
-        test.insertMyCode(-4);
-        test.insertMyCode(-2);
-        test.insertMyCode(-1);
-        test.insertMyCode(21);
-        test.insertMyCode(19);
-        test.insertMyCode(20);
-        test.insertMyCode(17);
-        test.insertMyCode(24);
-        test.insertMyCode(-5);
-        test.deleteMyCode(10);
+//        test.insertMyCode(1);
+//        test.insertMyCode(8);
+//        test.insertMyCode(7);
+//        test.insertMyCode(6);
+//        test.insertMyCode(3);
+//        test.insertMyCode(2);
+//        test.insertMyCode(0);
+//        test.insertMyCode(-4);
+//        test.insertMyCode(-2);
+//        test.insertMyCode(-1);
+//        test.insertMyCode(21);
+//        test.insertMyCode(19);
+//        test.insertMyCode(20);
+//        test.insertMyCode(17);
+//        test.insertMyCode(24);
+//        test.insertMyCode(-5);
+//        test.deleteMyCode(10);
 //        test.insertMyCode();
 //
 //
@@ -370,7 +393,8 @@ public class BST {
 //        test.inOrder(test.root);
 //        System.out.println();
 //        test.backOrder(test.root);
-        System.out.println(test.countLeavesMyCode(test.root));
+//        System.out.println(test.countLeavesMyCode(test.root));
+        System.out.println(test.countLeaves(test.root));
 
 
 //        test.insert(3);
