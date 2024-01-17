@@ -18,7 +18,8 @@ Extra: handle same value
 
 public class BST {
     Node root;
-    int leavesCounter;
+    int leavesCounter;  // no recommended to have because layer are refreshed everytime we use the methods
+    int layer;    // no recommended to have because layer are refreshed everytime we use the methods
     public static class Node {    // static: because no matter what BST object is instantiated, it is always in this way
         int data;
         Node left;
@@ -32,7 +33,8 @@ public class BST {
 
     BST(){
         root = null;
-        leavesCounter = 0;
+        leavesCounter = 0;  // not so prefer to put as counter is not part of the attribute
+        layer = 0; // reasonable to put, as it starts from 0 layer if no data at all for the layer
     }
 
     /* binaryInsertMyCode method
@@ -355,37 +357,75 @@ public class BST {
         // (e.g: leftLeaves of root are summed by leafLeaves and rightLeaves of the subtrees inside left big subtree of root)
     }
 
-//    public int countNodesMyCode(int )
+    /* countNodesAtKthLayer, info needed:
+     -- need to calculate the nth layer
+     -- need to calculate at a particular layer, how many nodes are there
+
+     approach: traversing all until the layer meets k
+     */
+    /* THINGS LEARNED:  -- better ways at below
+     - again, always try to avoid using global variable, that might lead to unintended side effects, especailly when calling this method multiplt times!
+     */
+    public int countNodesAtKthLayerMyCode(Node node, int k){
+        this.layer ++; // root is the first layer AND every time function calls it traversed to a new layer
+        if (node == null){
+            this.layer --;  // go back one layer is node is null as function will exit which means the latest traverse is invalid
+            return 0;
+        }
+        if (this.layer == k){  // since all node == null is filtered, then this one surely is node != null
+            this.layer --;   // go back one layer if node is found as function will exit
+            return 1; // nodes at the right layer then we dont have to further proceed to next layer, thus can exit.
+        }
+
+        // if node != null and layer !=k
+        int leftKLayerNodes = countNodesAtKthLayerMyCode(node.left, k);
+        int rightKLayerNodes = countNodesAtKthLayerMyCode(node.right, k);
+
+        this.layer --;          // go back one layer for cases where it is not null but also not the right layer then it finishes execution after checking left and right
+        return leftKLayerNodes + rightKLayerNodes;
+    }
+
+    public int countNodesAtKthLayer(Node node, int currLayer, int k){
+        if (node == null){
+            return 0;
+        }
+        if (currLayer == k){  // since all node == null is filtered, then this one surely is node != null
+            return 1; // nodes at the right layer then we dont have to further proceed to next layer, thus can exit.
+        }
+
+        // if node != null and layer !=k
+        int leftKLayerNodes = countNodesAtKthLayer(node.left, currLayer+1, k);
+        int rightKLayerNodes = countNodesAtKthLayer(node.right, currLayer+1, k);
+
+        return leftKLayerNodes + rightKLayerNodes;
+    }
 
 
     public static void main(String[] args) {
         BST test = new BST();
+        BST test2 = new BST();
 
-        test.insertMyCode(15);
+        test.insertMyCode(10);
         test.insertMyCode(4);
         test.insertMyCode(9);
-        test.insertMyCode(10);
-        test.insertMyCode(13);
-        test.insertMyCode(11);
-//        test.insertMyCode(12);
-        test.insertMyCode(14);
-//        test.insertMyCode(1);
-//        test.insertMyCode(8);
-//        test.insertMyCode(7);
-//        test.insertMyCode(6);
-//        test.insertMyCode(3);
-//        test.insertMyCode(2);
-//        test.insertMyCode(0);
-//        test.insertMyCode(-4);
-//        test.insertMyCode(-2);
-//        test.insertMyCode(-1);
-//        test.insertMyCode(21);
-//        test.insertMyCode(19);
-//        test.insertMyCode(20);
-//        test.insertMyCode(17);
-//        test.insertMyCode(24);
-//        test.insertMyCode(-5);
-//        test.deleteMyCode(10);
+        test.insertMyCode(8);
+        test.insertMyCode(3);
+        test.insertMyCode(2);
+        test.insertMyCode(5);
+        test.insertMyCode(6);
+        test.insertMyCode(1);
+        test.insertMyCode(7);
+        test.insertMyCode(0);
+        test.insertMyCode(-4);
+        test.insertMyCode(-2);
+        test.insertMyCode(-1);
+        test.insertMyCode(21);
+        test.insertMyCode(19);
+        test.insertMyCode(20);
+        test.insertMyCode(17);
+        test.insertMyCode(24);
+        test.insertMyCode(-5);
+        test.deleteMyCode(10);
 //        test.insertMyCode();
 //
 //
@@ -394,7 +434,9 @@ public class BST {
 //        System.out.println();
 //        test.backOrder(test.root);
 //        System.out.println(test.countLeavesMyCode(test.root));
-        System.out.println(test.countLeaves(test.root));
+//        System.out.println(test.countLeaves(test.root));
+        System.out.println(test.countNodesAtKthLayerMyCode(test.root, 7));
+        System.out.println(test.countNodesAtKthLayer(test.root, 7, 1));
 
 
 //        test.insert(3);
