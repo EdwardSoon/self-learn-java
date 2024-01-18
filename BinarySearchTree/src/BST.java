@@ -18,6 +18,8 @@ Extra: handle same value
 
  */
 
+import javax.sound.midi.SysexMessage;
+
 public class BST {
     Node root;
     int leavesCounter;  // no recommended to have because layer are refreshed everytime we use the methods
@@ -418,21 +420,74 @@ public class BST {
         return Math.max(leftHeight, rightHeight); // just always take the max of the height between all the left or right subtrees, eventually it will get to the highest height
     }
 
+    /* DETERMINE IF THE TREE IS COMPLETE, a few potential methods:
+      -- having the same height of for all the last second node or last node
+      -- nodes at last second layer OR last layer is 2^height
+        --- when height == height-1 , check if all the nodes are
+      -- Number of Node should be at least = 2^(h+1)-2^h-1
+      -- if more than 2^(h+1)-2^h-1, then make sure all the nodes are on the left
+      -- if the number of nodes at the h layer != 2^h
+        -- then check the number nodes at the h-1 layer == 2^(h-1)
+           --- if yes then check all the left if got right filled but no left filled then return false
+      Note: traverse all the way to the bottom
+     */
+    // Note: this code didnt cover all cases: cannot check the last level of nodes are not all filled but filled from left to right
+    public boolean completeTreeMyCode(){
+        if (countNodesAtKthLayer(this.root,0,heightMyCode(this.root,0)) == Math.pow(2,(heightMyCode(this.root,0)))){
+            return true;
+        }
+        else if (countNodesAtKthLayer(this.root,0, heightMyCode(this.root, 0)-1) == Math.pow(2 ,heightMyCode(this.root,0)-1)) {
+            return true;
+            }
+        else{
+            return false;
+        }
+    }
+
+    /* [BETTER WAY] DETERMINE THE TREE IS COMPLETE
+      - plot index for each node according to the order of complete tree since it is okay to leave the last level right side blank
+      - as long as the index > count nodes, then it means it is not a complete as it is off the index
+      a) we need a countNodes method
+      b) then we need an algo to index the order of nodes accordingly from left to right at the same layer
+     */
+    public int countNodes(Node node){
+        if (node == null){
+            return 0;
+        }
+        return (1 + countNodes(node.left) + countNodes(node.right));
+    }
+    /*  THINGS LEARNED:
+        - we can always label index in the way we need to help with the design of algo
+         -- e.g: index to label according to the order you want to ensure the tree is complete
+     */
+    public boolean isComplete(Node node, int index, int countNode){
+        if (node == null){      // end case where no more nodes
+            return true;
+        }
+        if (index > countNode){
+            return false;
+        }
+        return (isComplete(node.left, 2*index, countNode)       // repeat node.left and 2*prevIndex for every left traversal
+         && isComplete(node.right, 2*index+1, countNode));
+
+    }
+
     public static void main(String[] args) {
         BST test = new BST();
         BST test2 = new BST();
 
-        test.insertMyCode(10);
-        test.insertMyCode(4);
-        test.insertMyCode(9);
-        test.insertMyCode(8);
-        test.insertMyCode(3);
-        test.insertMyCode(2);
         test.insertMyCode(5);
+        test.insertMyCode(2);
         test.insertMyCode(6);
-        test.insertMyCode(1);
-        test.insertMyCode(7);
-        test.insertMyCode(0);
+//        test.insertMyCode();
+        test.insertMyCode(8);
+//        test.insertMyCode(3);
+//        test.insertMyCode(2);
+//        test.insertMyCode(5);
+//        test.insertMyCode(6);
+//        test.insertMyCode(1);
+//        test.insertMyCode(7);
+//        test.insertMyCode(0);
 //        test.insertMyCode(-4);
 //        test.insertMyCode(-2);
 //        test.insertMyCode(-1);
@@ -452,8 +507,13 @@ public class BST {
 //        System.out.println(test.countLeavesMyCode(test.root));
 //        System.out.println(test.countLeaves(test.root));
 //        System.out.println(test.countNodesAtKthLayerMyCode(test.root, 7));
-//        System.out.println(test.countNodesAtKthLayer(test.root, 7, 1));
-        System.out.print(test.heightMyCode(test.root, 1));
+        int startLayer = 0;
+//        System.out.println(test.countNodesAtKthLayer(test.root, 7, startLayer));
+//        System.out.print(test.heightMyCode(test.root, startLayer)); // root is at height=0
+//        System.out.print(test.completeTreeMyCode());
+//        System.out.println(test.countNodes(test.root));
+        int index = 1; // start from 1 as root is 1
+        System.out.println(test.isComplete(test.root,index,test.countNodes(test.root)));
 
 
 //        test.insert(3);
