@@ -19,6 +19,8 @@ Extra: handle same value
  */
 
 import javax.sound.midi.SysexMessage;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class BST {
     Node root;
@@ -472,15 +474,43 @@ public class BST {
 
     }
 
+
+    // level order traversal
+    // reference from https://www.geeksforgeeks.org/level-order-tree-traversal/
+    void printLevelOrder()
+    {
+        Queue<Node> queue = new LinkedList<Node>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+
+            // poll() removes the present head.
+            Node tempNode = queue.poll();
+            System.out.print(tempNode.data + " ");
+
+            // Enqueue left child
+            if (tempNode.left != null) {
+                queue.add(tempNode.left);
+            }
+
+            // Enqueue right child
+            if (tempNode.right != null) {
+                queue.add(tempNode.right);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         BST test = new BST();
         BST test2 = new BST();
 
         test.insertMyCode(5);
         test.insertMyCode(2);
-        test.insertMyCode(6);
+        test.insertMyCode(7);
 //        test.insertMyCode();
         test.insertMyCode(8);
+        test.insertMyCode(6);
+        test.insertMyCode(1);
+        test.printLevelOrder();
 //        test.insertMyCode(3);
 //        test.insertMyCode(2);
 //        test.insertMyCode(5);
@@ -507,13 +537,13 @@ public class BST {
 //        System.out.println(test.countLeavesMyCode(test.root));
 //        System.out.println(test.countLeaves(test.root));
 //        System.out.println(test.countNodesAtKthLayerMyCode(test.root, 7));
-        int startLayer = 0;
-//        System.out.println(test.countNodesAtKthLayer(test.root, 7, startLayer));
-//        System.out.print(test.heightMyCode(test.root, startLayer)); // root is at height=0
-//        System.out.print(test.completeTreeMyCode());
-//        System.out.println(test.countNodes(test.root));
-        int index = 1; // start from 1 as root is 1
-        System.out.println(test.isComplete(test.root,index,test.countNodes(test.root)));
+//        int startLayer = 0;
+////        System.out.println(test.countNodesAtKthLayer(test.root, 7, startLayer));
+////        System.out.print(test.heightMyCode(test.root, startLayer)); // root is at height=0
+////        System.out.print(test.completeTreeMyCode());
+////        System.out.println(test.countNodes(test.root));
+//        int index = 1; // start from 1 as root is 1
+//        System.out.println(test.isComplete(test.root,index,test.countNodes(test.root)));
 
 
 //        test.insert(3);
