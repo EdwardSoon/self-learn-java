@@ -22,16 +22,16 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BSTG<T extends Comparable<T>> {       // cannot implement with Comparable<Node<T>> here // we will use Comparable as it is natural ordering as we are traversing using currentNode
+public class BSTG<T extends Comparable<T>> {       // cannot `implements Comparable<Node<T>>` here // we will use Comparable as it is natural ordering as we are traversing using currentNode
     // T is an object, thus it will adhere to the Comparable Interface's compareTo(T o) non-static method where it takes object as parameter
     // we can also use data to call the compareTo as data in Node is T type now (an object)
+    // <T implements Comparable <T>> doesnt work for historical reason
+    // <T extends Comparable <T>> to guarantee that T data is in natural order thus can use .compareTo() method
     Node<T> root;
     int leavesCounter;  // no recommended to have because layer are refreshed everytime we use the methods
     int layer;    // no recommended to have because layer are refreshed everytime we use the methods
 
     public static class Node<T> {    // static: because no matter what BST object is instantiated, it is always in this way
-        // <T extends Comparable <T>> to guarantee that T data is in natural order thus can use .compareTo() method
-        // <T implements Comparable <T>> doesnt work
         // optional to have extends Comparable <T> under Node
         T data;
         Node<T> left;
