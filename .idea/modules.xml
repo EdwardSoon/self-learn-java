@@ -31,6 +31,8 @@
       <module fileurl="file://$PROJECT_DIR$/Tests/Test2/Test2.iml" filepath="$PROJECT_DIR$/Tests/Test2/Test2.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tests/TestArrayList/TestArrayList.iml" filepath="$PROJECT_DIR$/Tests/TestArrayList/TestArrayList.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tests/TestHashMap/TestHashMap.iml" filepath="$PROJECT_DIR$/Tests/TestHashMap/TestHashMap.iml" />
+      <module fileurl="file://$PROJECT_DIR$/kbIO/fileIO.iml" filepath="$PROJECT_DIR$/kbIO/fileIO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/testJar/testJar.iml" filepath="$PROJECT_DIR$/testJar/testJar.iml" />
     </modules>
   </component>
 </project>
