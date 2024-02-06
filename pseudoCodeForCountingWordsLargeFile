@@ -1,0 +1,139 @@
+[CORRECT ANSWER]
+Q1: suppose we have a big file, every line is a word, and the lines are sorted in alphabetical order. We want to output the word count result to a file.
+Solution:
+1. create fileReader and bufferedReader
+2. define int ASCII; String prevWord; int[] arrWord, arrCount; int i=0;
+3. while (words.read().toCharArray()[0] == ASCII):
+    for each word in words:
+        if (word == prevWord):
+            update arrWord, arrCount arrays with corresponded index
+            prevWord = word;
+        else:
+            i++;
+            arrWord.append(word, count)
+            prevWord = word;
+4. write/append to the final file
+5. clear the arrWord and arrCount
+6. ASCII ++;
+6. repeat steps 3-6 repeatedly
+
+
+Q2: How to sort a big file with limited memory?
+Solution:
+1. create fileReader and BufferedReader
+2. define array
+3. read N chunk of data into array
+4. sort it
+5. write into an intermediate file
+6. repeat the process until the big file has no more data
+
+Q3: How to merge these two files: two big files, each row is a word and a count, each word is unique within the file
+Solution 1 (with sorted):
+1. sort the file using Q2 technique
+2. after two big files are sorted: compare eachRow from file 1 to each row from file 2
+3. merge and write to intermediate file:
+    3.1 whichever smaller in terms of lexicographical then it will be written in final file first
+4. now we have one big sorted file:
+    4.1 we scan if the prevWord == currWord then update the count write to final file
+    4.2 if not append to the final file
+
+Solution 2 (without sorted): -- use hashCode
+1. we divide the two big files into small files
+    e.g: F1.a , F1.b, F2.a, F2.b...
+2. each a and b represents the same group of strings based on hashCode
+3. we hashCode all the strings % FileNumber
+4. check across the same group of files -- so we dont have to check all files:
+    e.g: F1.a <-> F2.a (can use hashmap)
+    Note: what if F2.b being distributed a lot larger and exceed memory?
+     -- divide it into smaller file with modulus a fileNumber again
+     -- then cross check F1.a to F2.a.1 and F2.a.2
+
+
+ ------------------ ARCHIVED  --------------------------------
+
+50GB file : can’t write everything straight into the files
+Task : For counting for occurrence words -- thus we cant just read line by line -- which make us miscount
+
+Q:  Read a file (assume it only contains English words), count each words' number of occurrence.
+Write the output to a file using CSV format (word,occurrence), and the result in the CSV file should be sorted by the number of occurrence in descending order.
+Suppose we have a 50GB text file and we want to count the word occurrence using our own machine provide pseudocode
+* challenges: machine’s memory
+Tips: store intermediate result to disk
+Disk is for long-term memory storage ; RAM is for short-term memory storage
+
+
+pseudocode:
+1. create fileReader
+2. create bufferedReader (Wrapping class) on top of FileReader object to read chunks of data rather than one char by one char
+3. start reading chunks of data from the file through stream (so that it uses less RAM)
+4. count words by using HashMap to store the words as key and countsOfOccurrence as value
+5. continue the process of reading the data:
+    5.1 if (find that the map contains the similar key): the value + 1
+    5.2 else: put the new word into the map and value = 1;
+
+This way we can prevent RAM overhead && we can also continue store the existing words or new words with the counts.
+Follow up:
+what if the Large file contains all words are Unique, then in the above solution, HashMap will still make Heap/Stack overflow by using too much RAM, then what should we do?
+
+revised pseudocode: (Need to use Divide and Conquer -- Recursion : break down the files into smaller pieces count them then merge them back)
+1. create fileReader
+2. create bufferedReader (Wrapping class) on top of FileReader object to read chunks of data rather than one char by one char
+3. break down to smaller files and solve it one by one
+4. start reading chunks of data from the file through stream (so that it uses less RAM)
+5. count words by using HashMap to store the words as key and countsOfOccurrence as value
+    5.1 if (find that the map contains the similar key): the value + 1
+    5.2 else: put the new word into the map and value = 1;
+6. write the first sub-files as an intermediate results and store it into a temporary file first
+    6.1 clear the hashMap that stores the data
+7. process 4-6 repeats (can use recursion) until the file is finished reading
+8. combine the intermediate results for the final results
+    8.1 read one file by one file
+    8.2 create a Binary Search Tree -- a balanced Tree (if small ASCII then add to the left, if bigger ASCII then add to the right) to aggregate (since the data size is large)
+        8.2.1 if (words_key exists): count_value_final += count_value_curr_tempFile
+        8.2.2 else : BST.add (words_key, count_value_curr_tempFile) by adding at the right position
+9. write all result into the final file
+
+
+This way, we can solve the potential memory overflow issue:
+ a) for reading usage: partitioned it to smaller contents; using BufferedReader to read line by line
+ b) for HashMap usage: divide and conquer technique to prevent all chars in the file to be read and count at once
+ c) for writing usage: partitioned it to write to multiple files; using BufferedWriter to write line by line
+ d) for Balanced Tree usage:
+  - more predictable memory usage, as resizing in HashMap (if above size threshold) will increase memory usage
+  - hashing also takes memory usage
+  - guaranteed O(Log N) time performance
+
+
+Question:
+for 8.1 if all words are unique we will still face the same issue right?
+ -- yes still have the same issue where the BST memory will still overflow by storing too much temporary results
+ -- read the follows to solve this:
+
+
+    can think about this first:
+     - we have two big files
+     - in the file, each row is a word and a count
+     - each word is unique within the file
+
+    Q: how to merge these two files to be a file, each row is a word and a count, and ensure word uniqueness in the result file.
+    And yes, naive means without any data structure/algorithm, how to solve it. and from this naive solution, how to optimize using data structure and algorithm. When using a data structure, remember that any data structure we learnt needs memory space. can think about space complexity of the data structure.
+
+
+      how about this merging method:
+      1. sort the two files into alphabetical order
+      2. define int ASCII; int[] arrWord, arrCount; int i = 0;
+      3. for each_row in file 1:
+            while (each_rowF1.charToArray [0] == ASCII):
+             store the word, count accordingly to their same corresponds index for arrWord and arrCount
+      4. for each_row in file 2:
+            for i of word[i] in wordArr
+            while (each_rowF2.charToArray [0] == ASCII) && each_rowF2 in arrWord <= wordFile2 && (word[i] != each_rowF2) ):
+                4.0 i++;
+                4.1 if (wordFile2 exists in arrWord):
+                    4.1.1 update the count in arrCount at the corresponded index of the existed
+                4.2 else: append the (word, count) into the array
+      5. write/append the result into the final file
+      6. redefine arrWord , arrCount to blank array
+      7. ASCII ++
+      6. repeat same process from 3-7 until base case reached
+        base case: ASCII = 'z' + 1
