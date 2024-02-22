@@ -34,6 +34,7 @@
       <module fileurl="file://$PROJECT_DIR$/countWordsFile/countWordsFile.iml" filepath="$PROJECT_DIR$/countWordsFile/countWordsFile.iml" />
       <module fileurl="file://$PROJECT_DIR$/countWordsFileBuffered/countWordsFileBuffered.iml" filepath="$PROJECT_DIR$/countWordsFileBuffered/countWordsFileBuffered.iml" />
       <module fileurl="file://$PROJECT_DIR$/kbIO/fileIO.iml" filepath="$PROJECT_DIR$/kbIO/fileIO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/networking/httpServer/httpServer.iml" filepath="$PROJECT_DIR$/networking/httpServer/httpServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/networking/networking.iml" filepath="$PROJECT_DIR$/networking/networking.iml" />
       <module fileurl="file://$PROJECT_DIR$/testJar/testJar.iml" filepath="$PROJECT_DIR$/testJar/testJar.iml" />
     </modules>
