@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BinarySearchTree/BinarySearchTree.iml" filepath="$PROJECT_DIR$/BinarySearchTree/BinarySearchTree.iml" />
       <module fileurl="file://$PROJECT_DIR$/AlgoSorts/BubbleSort/BubbleSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/BubbleSort/BubbleSort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/networking/CalServerMulClient/CalServerMulClient.iml" filepath="$PROJECT_DIR$/networking/CalServerMulClient/CalServerMulClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/CompareLexiString/CompareLexiString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/CompareLexiString/CompareLexiString.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/ConvertString/ConvertString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/ConvertString/ConvertString.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/CurrencyFormatter/CurrencyFormatter.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/CurrencyFormatter/CurrencyFormatter.iml" />
