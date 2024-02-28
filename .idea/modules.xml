@@ -23,6 +23,7 @@
       <module fileurl="file://$PROJECT_DIR$/Tests/MergeSort, ArrayList, Arrays Sort/MergeSort, ArrayList, Arrays Sort.iml" filepath="$PROJECT_DIR$/Tests/MergeSort, ArrayList, Arrays Sort/MergeSort, ArrayList, Arrays Sort.iml" />
       <module fileurl="file://$PROJECT_DIR$/networking/MulClientOneServer/MulClientOneServer.iml" filepath="$PROJECT_DIR$/networking/MulClientOneServer/MulClientOneServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests/Palindrome/Palindrome.iml" filepath="$PROJECT_DIR$/LeetCodeQuests/Palindrome/Palindrome.iml" />
+      <module fileurl="file://$PROJECT_DIR$/networking/PrimeNoServerMulClient/PrimeNoServerMulClient.iml" filepath="$PROJECT_DIR$/networking/PrimeNoServerMulClient/PrimeNoServerMulClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/Queue and Stack/Queue/Queue.iml" filepath="$PROJECT_DIR$/Queue and Stack/Queue/Queue.iml" />
       <module fileurl="file://$PROJECT_DIR$/AlgoSorts/QuickSort/QuickSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/QuickSort/QuickSort.iml" />
       <module fileurl="file://$PROJECT_DIR$/ReverseLinkedList/ReverseLinkedList.iml" filepath="$PROJECT_DIR$/ReverseLinkedList/ReverseLinkedList.iml" />

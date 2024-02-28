@@ -26,7 +26,7 @@ public class CalculatorServer {
                     try{
                         DataInputStream in = new DataInputStream(connection.getInputStream());  // build an dataInputStream to read the primitive input from client
                         DataOutputStream out = new DataOutputStream(connection.getOutputStream());
-                        double num1 = Double.parseDouble(in.readUTF());  // when reading it will convert string (since it is a string from args) to double data types
+                        double num1 = Double.parseDouble(in.readUTF());  // parse to double from string (since it is a string from args of client)
                         double num2 = Double.parseDouble(in.readUTF());
                         double result;
                         String operation = in.readUTF();
