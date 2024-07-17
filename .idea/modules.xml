@@ -8,7 +8,6 @@
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/CompareLexiString/CompareLexiString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/CompareLexiString/CompareLexiString.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/ConvertString/ConvertString.iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/ConvertString/ConvertString.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/CurrencyFormatter/CurrencyFormatter.iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/CurrencyFormatter/CurrencyFormatter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/DataStructure/DataStructure.iml" filepath="$PROJECT_DIR$/DataStructure/DataStructure.iml" />
       <module fileurl="file://$PROJECT_DIR$/Recursion/Factorial/Factorial.iml" filepath="$PROJECT_DIR$/Recursion/Factorial/Factorial.iml" />
       <module fileurl="file://$PROJECT_DIR$/Recursion/Fibonacci/Fibonacci.iml" filepath="$PROJECT_DIR$/Recursion/Fibonacci/Fibonacci.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/GetDay/GetDay.iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/GetDay/GetDay.iml" />
@@ -19,7 +18,6 @@
       <module fileurl="file://$PROJECT_DIR$/InterviewTests/LinkedList/LinkedListforReverse.iml" filepath="$PROJECT_DIR$/InterviewTests/LinkedList/LinkedListforReverse.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/LongestSubStringArrayList/LongestSubStringArrayList.iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/LongestSubStringArrayList/LongestSubStringArrayList.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/LongestSubStringHashMap (not yet done)/LongestSubStringHashMap (not yet done).iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/LongestSubStringHashMap (not yet done)/LongestSubStringHashMap (not yet done).iml" />
-      <module fileurl="file://$PROJECT_DIR$/MapReduce/MapReduce.iml" filepath="$PROJECT_DIR$/MapReduce/MapReduce.iml" />
       <module fileurl="file://$PROJECT_DIR$/LeetCodeQuests(Deprecated)/MaxProductofTwo/MaxProductofTwo.iml" filepath="$PROJECT_DIR$/LeetCodeQuests(Deprecated)/MaxProductofTwo/MaxProductofTwo.iml" />
       <module fileurl="file://$PROJECT_DIR$/AlgoSorts/MergeSort/MergeSort.iml" filepath="$PROJECT_DIR$/AlgoSorts/MergeSort/MergeSort.iml" />
       <module fileurl="file://$PROJECT_DIR$/InterviewTests/MergeSort, ArrayList, Arrays Sort/MergeSort, ArrayList, Arrays Sort.iml" filepath="$PROJECT_DIR$/InterviewTests/MergeSort, ArrayList, Arrays Sort/MergeSort, ArrayList, Arrays Sort.iml" />
@@ -36,8 +34,8 @@
       <module fileurl="file://$PROJECT_DIR$/InterviewTests/Test2/Test2.iml" filepath="$PROJECT_DIR$/InterviewTests/Test2/Test2.iml" />
       <module fileurl="file://$PROJECT_DIR$/InterviewTests/TestArrayList/TestArrayList.iml" filepath="$PROJECT_DIR$/InterviewTests/TestArrayList/TestArrayList.iml" />
       <module fileurl="file://$PROJECT_DIR$/InterviewTests/TestHashMap/TestHashMap.iml" filepath="$PROJECT_DIR$/InterviewTests/TestHashMap/TestHashMap.iml" />
-      <module fileurl="file://$PROJECT_DIR$/countWordsFile/countWordsFile.iml" filepath="$PROJECT_DIR$/countWordsFile/countWordsFile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/countWordsFileBuffered/countWordsFileBuffered.iml" filepath="$PROJECT_DIR$/countWordsFileBuffered/countWordsFileBuffered.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MapReduce/countWordsFile/countWordsFile.iml" filepath="$PROJECT_DIR$/MapReduce/countWordsFile/countWordsFile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MapReduce/countWordsFileBuffered/countWordsFileBuffered.iml" filepath="$PROJECT_DIR$/MapReduce/countWordsFileBuffered/countWordsFileBuffered.iml" />
       <module fileurl="file://$PROJECT_DIR$/kbIO/fileIO.iml" filepath="$PROJECT_DIR$/kbIO/fileIO.iml" />
       <module fileurl="file://$PROJECT_DIR$/networking/httpServer/httpServer.iml" filepath="$PROJECT_DIR$/networking/httpServer/httpServer.iml" />
       <module fileurl="file://$PROJECT_DIR$/networking/networking.iml" filepath="$PROJECT_DIR$/networking/networking.iml" />
