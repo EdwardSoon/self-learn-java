@@ -18,40 +18,29 @@ Extra: handle same value
 
  */
 
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BSTG<T extends Comparable<T>> {       // cannot `implements Comparable<Node<T>>` here // we will use Comparable as it is natural ordering as we are traversing using currentNode
-    // T is an object, thus it will adhere to the Comparable Interface's compareTo(T o) non-static method where it takes object as parameter
-    // we can also use data to call the compareTo as data in Node is T type now (an object)
-    // <T implements Comparable <T>> doesnt work for historical reason
-    // <T extends Comparable <T>> to guarantee that T data is in natural order thus can use .compareTo() method
-    Node<T> root;
+public class BST {
+    Node root;
     int leavesCounter;  // no recommended to have because layer are refreshed everytime we use the methods
     int layer;    // no recommended to have because layer are refreshed everytime we use the methods
-
-    public static class Node<T> {    // static: because no matter what BST object is instantiated, it is always in this way
-        // optional to have extends Comparable <T> under Node
-        T data;
-        Node<T> left;
-        Node<T> right;
-        Node (T d){
+    public static class Node {    // static: because no matter what BST object is instantiated, it is always in this way
+        int data;
+        Node left;
+        Node right;
+        Node (int d){
             data = d;
             left = null;
             right = null;
         }
-
-        // we dont have to define compareTo () method here as it is already defined in all the Generic Classes)
     }
 
-    BSTG(){
+    BST(){
         root = null;
         leavesCounter = 0;  // not so prefer to put as counter is not part of the attribute
         layer = 0; // reasonable to put, as it starts from 0 layer if no data at all for the layer
     }
-
-
 
     /* binaryInsertMyCode method
      - for traversing binary from the Root node to the final node
@@ -64,9 +53,9 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
       - can utilise how every call of functions returned is actually very useful, instead of just the final return results to replace all the calls' results (which is what i did here)
       In short, chatgpt says both are equally efficient, but mine is more readable.
      */
-    private Node<T> binaryInsertMyCode(Node<T> curr_node, T data){
+    private Node binaryInsertMyCode(Node curr_node, int data){
 
-        if (data.compareTo(curr_node.data) > 0){
+        if (data > curr_node.data){
             if (curr_node.right != null){
                 return binaryInsertMyCode(curr_node.right, data); // return to have an exit for the current method call on stack memory
                 // the above means returning the result of binaryInsertMyCode(curr_node.right,data) recursively
@@ -87,16 +76,16 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
 //        return curr_node;
     }
 
-    public void insertMyCode(T data){
-        Node<T> new_node = new Node<>(data);
+    public void insertMyCode(int data){
+        Node new_node = new Node(data);
         if (this.root == null){
             this.root = new_node;
             return;
         }
         // always start from root to check, as we need to make all the values that are less than root.data to the left subtree, and bigger one to the right subtrees.
-        Node<T> currFinalNode = binaryInsertMyCode(this.root, data); // division from root to curr final node
+        Node currFinalNode = binaryInsertMyCode(this.root, data); // division from root to curr final node
         // since the curr_node returned is the final node, we need to place the new node to either its right or left
-        if (new_node.data.compareTo(currFinalNode.data) > 0){
+        if (new_node.data > currFinalNode.data){
             currFinalNode.right = new_node;
         }
         else{ // new_node.data <= currFinalNode.data ; for the consistent approach as above on handling the same value
@@ -104,24 +93,24 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
         }
     }
 
-    private Node<T> insertBinary(Node<T> currNode, T data){
-        Node<T> new_node = new Node<>(data);
+    private Node insertBinary(Node currNode, int data){
+        Node new_node = new Node(data);
 
         if (currNode == null){
             return new_node; // return new_node when reached node == null -- so this is the final node
         }
 
-        if (data.compareTo(currNode.data) > 0){
+        if (data > currNode.data){
             currNode.right = insertBinary(currNode.right, data);  // currNode.right calls own method to get its value in the next call. If the node.right is null then we will assign new_node; If node.right already existed, then we will return node.right, (before that we will call recursively if we havent findMyCode the node that is null).
         }
-        else if (data.compareTo(currNode.data) < 0){
+        else if (data < currNode.data){
             currNode.left = insertBinary(currNode.left, data);
         }
         return currNode;   // if currNode exists, then returned the original assigned value
         // it will still return this.root node if there exists this.root OR it returns back to node.right/left for node.right/left if it already existed
     }
 
-    public void insert(T data) {
+    public void insert(int data) {
         this.root = insertBinary(this.root, data);  // thus here we can assign rootNode to the returned value
     }
 
@@ -130,30 +119,30 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
      - to findMyCode the target data, if found then return the Node (not necessarily final Node)
      - if non-exist then return final Node
      */
-    private Node<T> binaryFindMyCode2(Node<T> currNode, T data){
+    private Node binaryFindMyCode2(Node currNode, int data){
         // base case
         if(currNode == null){
             return null;    // not found
         }
-        else if (data.compareTo(currNode.data) == 0){
+        else if (data == currNode.data){
             return currNode;
         }
 
-        if (data.compareTo(currNode.data) > 0){
-            return binaryFindMyCode2(currNode.right, data);
+        if (data > currNode.data){
+            return binaryFindMyCode(currNode.right, data);
         }
         else{ // data <= currNode.data
-            return binaryFindMyCode2(currNode.left, data);
+            return binaryFindMyCode(currNode.left, data);
         }
     }
 
-    private Node<T> binaryFindMyCode(Node<T> currNode, T data){
+    private Node binaryFindMyCode(Node currNode, int data){
         // base case
-        if (data.compareTo(currNode.data) == 0){
+        if (data == currNode.data){
             return currNode;
         }
 
-        if (data.compareTo(currNode.data) > 0){
+        if (data > currNode.data){
             if (currNode.right != null){
             return binaryFindMyCode(currNode.right, data);
             }
@@ -167,15 +156,15 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
         }
     }
 
-    public boolean findMyCode(T data){
+    public boolean findMyCode(int data){
         return binaryFindMyCode(this.root, data) != null; // this is better than binaryFindMyCode(this.root, data).data == data;
     }
 
     // traverse and having tracked previous node in order to adjust the prev node connection
-    private Node<T> binaryDelMyCode(Node<T> prevNode, Node<T> currNode, T dataDel){
-        if (dataDel.compareTo(currNode.data)==0){
+    private Node binaryDelMyCode(Node prevNode, Node currNode, int dataDel){
+        if (currNode.data == dataDel){
             if (currNode.right != null && currNode.left != null){
-                if(currNode.data.compareTo(prevNode.data) > 0){
+                if(currNode.data > prevNode.data){
                     prevNode.right = currNode.left;
                 }
                 else{ // currNode.data <= prevNode.data
@@ -183,11 +172,11 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
                 }
                 // move the entire subtree to the most bottom of the other subtree
                 // in the code below, move the entire toDelNode.right to the bottom of toDelNode.left
-                Node<T> last = binaryInsertMyCode(currNode.left, currNode.right.data);
+                Node last = binaryInsertMyCode(currNode.left, currNode.right.data);
                 last.right = currNode.right;
             }
             else if (currNode.right != null){
-                if(currNode.data.compareTo(prevNode.data) > 0){
+                if(currNode.data > prevNode.data){
                     prevNode.right = currNode.right;
                 }
                 else { // currNode.data <= prevNode.data
@@ -195,7 +184,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
                 }
             }
             else if (currNode.left != null){
-                if(currNode.data.compareTo(prevNode.data) > 0){
+                if(currNode.data > prevNode.data){
                     prevNode.right = currNode.left;
                 }
                 else { // currNode.data <= prevNode.data
@@ -203,7 +192,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
                 }
             }
             else{
-                if(currNode.data.compareTo(prevNode.data) > 0){
+                if(currNode.data > prevNode.data){
                     prevNode.right = null;
                 }
                 else { // currNode.data <= prevNode.data
@@ -213,7 +202,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
             return currNode;
         }
 
-        else if (dataDel.compareTo(currNode.data)>0){
+        else if (dataDel > currNode.data){
             if (currNode.right != null){
                 return binaryDelMyCode(currNode, currNode.right, dataDel);
             }
@@ -241,12 +230,12 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
             b.2) (same like root.data got deleted) then move the entire toDel.left/right to the most bottom of left/right
           c) if both side null, cna pull any
      */
-    public void deleteMyCode(T data){
+    public void deleteMyCode(int data){
         // root case
-        if (this.root.data.compareTo(data) == 0){
+        if (this.root.data == data){
             if(root.right != null && root.left != null){
                 // move the entire subtree (right in this case) to the bottom of the chosen connected subtree (in this case: left)
-                Node<T> last = binaryInsertMyCode(root.left, root.right.data);  // go to the most bottom by using the first node of the right subtree
+                Node last = binaryInsertMyCode(root.left, root.right.data);  // go to the most bottom by using the first node of the right subtree
                 last.right = root.right;  // curr.right.data for sure > last.right.data
                 root = root.left;   // root = second element and remove original root
             }
@@ -264,7 +253,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
         }
 
         if (findMyCode(data)){
-            if (data.compareTo(root.data)> 0){
+            if (data > root.data){
                 binaryDelMyCode(root, root.right, data);
             }
             else { // data <= root.data
@@ -283,7 +272,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
      - node = node.left; minToMaxLeftMyCode(node); can be simplified to just minToMaxLeftMyCode(node.left)
 
      */
-    private void minToMaxLeftMyCode(Node<T> node){
+    private void minToMaxLeftMyCode(Node node){
         if (node.left != null){     // no need while because for every node propagated, it will check if there is left Node since we call the function again
             node = node.left;        // propagates to the left
             minToMaxLeftMyCode(node);         // reverse the order of output when it propagates to the end
@@ -300,7 +289,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
     /* traverse from min to max
       - covering all kind of binary search tree (where some left node is >1 at the subtrees some right node is >1)
      */
-    public void inOrderMyCode(Node<T> node){
+    public void inOrderMyCode(Node node){
         if (node != null){
             minToMaxLeftMyCode(node);
 
@@ -316,7 +305,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
     }
 
     // [BEST SIMPLIFIED METHOD] traverse from min to max covering all cases
-    public void inOrder (Node<T> node){
+    public void inOrder (Node node){
         if(node != null){
             inOrder(node.left);                 // traverse to most left
             System.out.print(" " + node.data); // print elements in a reverse manner output
@@ -326,7 +315,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
     }
 
     // [BEST SIMPLIFIED METHOD] traverse from max to min covering all cases
-    public void backOrderMyCode(Node<T> node){
+    public void backOrderMyCode(Node node){
         if(node != null){
             backOrderMyCode(node.right);
             System.out.print(" " + node.data);
@@ -344,7 +333,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
          --- without global counter, we can fix/change our code easier whenever needed.
      */
 
-    public int countLeavesMyCode(Node<T> node) {
+    public int countLeavesMyCode(Node node) {
 
         if (node != null){
             countLeavesMyCode(node.left);         // recursively traverse to the most left
@@ -356,7 +345,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
         return this.leavesCounter;          // this responsible for returning the FINAL value to Main
     }
 
-    public int countLeaves(Node<T> node) {
+    public int countLeaves(Node node) {
         if (node == null) {
             return 0; // Base case: no leaves for a null node
         }
@@ -382,7 +371,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
     /* THINGS LEARNED:  -- better ways at below
      - again, always try to avoid using global variable, that might lead to unintended side effects, especailly when calling this method multiplt times!
      */
-    public int countNodesAtKthLayerMyCode(Node<T> node, int k){
+    public int countNodesAtKthLayerMyCode(Node node, int k){
         this.layer ++; // root is the first layer AND every time function calls it traversed to a new layer
         if (node == null){
             this.layer --;  // go back one layer is node is null as function will exit which means the latest traverse is invalid
@@ -401,7 +390,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
         return leftKLayerNodes + rightKLayerNodes;
     }
 
-    public int countNodesAtKthLayer(Node<T> node, int startLayer, int k){
+    public int countNodesAtKthLayer(Node node, int startLayer, int k){
         if (node == null){
             return 0;
         }
@@ -421,7 +410,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
      b) calculate the traverse a bit like above to keep track the height (layer)
      Note: traverse all the path to find the longest path then track that
      */
-    public int heightMyCode(Node<T> node, int startHeight){
+    public int heightMyCode(Node node, int startHeight){
         if (node == null){ // means prev node is the deepest node
             return (startHeight - 1);  // return the last non-null node's height
         }
@@ -462,7 +451,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
       a) we need a countNodes method
       b) then we need an algo to index the order of nodes accordingly from left to right at the same layer
      */
-    public int countNodes(Node<T> node){
+    public int countNodes(Node node){
         if (node == null){
             return 0;
         }
@@ -472,7 +461,7 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
         - we can always label index in the way we need to help with the design of algo
          -- e.g: index to label according to the order you want to ensure the tree is complete
      */
-    public boolean isComplete(Node<T> node, int index, int countNode){
+    public boolean isComplete(Node node, int index, int countNode){
         if (node == null){      // end case where no more nodes
             return true;
         }
@@ -489,12 +478,12 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
     // reference from https://www.geeksforgeeks.org/level-order-tree-traversal/
     void printLevelOrder()
     {
-        Queue<Node<T>> queue = new LinkedList<>();
+        Queue<Node> queue = new LinkedList<Node>();
         queue.add(root);
         while (!queue.isEmpty()) {
 
             // poll() removes the present head.
-            Node<T> tempNode = queue.poll();
+            Node tempNode = queue.poll();
             System.out.print(tempNode.data + " ");
 
             // Enqueue left child
@@ -510,17 +499,16 @@ public class BSTG<T extends Comparable<T>> {       // cannot `implements Compara
     }
 
     public static void main(String[] args) {
-        BSTG<String> test = new BSTG<>();
-//        BSTG test2 = new BSTG();
+        BST test = new BST();
+        BST test2 = new BST();
 
-        test.insertMyCode("hi");
-        test.insertMyCode("a");
-        test.insertMyCode("b");
+        test.insertMyCode(5);
+        test.insertMyCode(2);
+        test.insertMyCode(7);
 //        test.insertMyCode();
-        test.insertMyCode("z");
-        test.insertMyCode("oo");
-        test.insertMyCode("bye");
-//        test.insertMyCode(2.3);
+        test.insertMyCode(8);
+        test.insertMyCode(6);
+        test.insertMyCode(1);
         test.printLevelOrder();
 //        test.insertMyCode(3);
 //        test.insertMyCode(2);
