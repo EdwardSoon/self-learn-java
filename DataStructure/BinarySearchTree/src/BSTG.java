@@ -18,30 +18,39 @@ Extra: handle same value
 
  */
 
-import javax.sound.midi.SysexMessage;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class BST {
-    Node root;
+public class BSTG<T extends Comparable<T>> {       // cannot `implements Comparable<Node<T>>` here // we will use Comparable as it is natural ordering as we are traversing using currentNode
+    // T is an object, thus it will adhere to the Comparable Interface's compareTo(T o) non-static method where it takes object as parameter
+    // we can also use data to call the compareTo as data in Node is T type now (an object)
+    // <T implements Comparable <T>> doesnt work for historical reason
+    // <T extends Comparable <T>> to guarantee that T data is in natural order thus can use .compareTo() method
+    Node<T> root;
     int leavesCounter;  // no recommended to have because layer are refreshed everytime we use the methods
     int layer;    // no recommended to have because layer are refreshed everytime we use the methods
-    public static class Node {    // static: because no matter what BST object is instantiated, it is always in this way
-        int data;
-        Node left;
-        Node right;
-        Node (int d){
+
+    public static class Node<T> {    // static: because no matter what BST object is instantiated, it is always in this way
+        // optional to have extends Comparable <T> under Node
+        T data;
+        Node<T> left;
+        Node<T> right;
+        Node (T d){
             data = d;
             left = null;
             right = null;
         }
+
+        // we dont have to define compareTo () method here as it is already defined in all the Generic Classes)
     }
 
-    BST(){
+    BSTG(){
         root = null;
         leavesCounter = 0;  // not so prefer to put as counter is not part of the attribute
         layer = 0; // reasonable to put, as it starts from 0 layer if no data at all for the layer
     }
+
+
 
     /* binaryInsertMyCode method
      - for traversing binary from the Root node to the final node
@@ -54,9 +63,9 @@ public class BST {
       - can utilise how every call of functions returned is actually very useful, instead of just the final return results to replace all the calls' results (which is what i did here)
       In short, chatgpt says both are equally efficient, but mine is more readable.
      */
-    private Node binaryInsertMyCode(Node curr_node, int data){
+    private Node<T> binaryInsertMyCode(Node<T> curr_node, T data){
 
-        if (data > curr_node.data){
+        if (data.compareTo(curr_node.data) > 0){
             if (curr_node.right != null){
                 return binaryInsertMyCode(curr_node.right, data); // return to have an exit for the current method call on stack memory
                 // the above means returning the result of binaryInsertMyCode(curr_node.right,data) recursively
@@ -77,16 +86,16 @@ public class BST {
 //        return curr_node;
     }
 
-    public void insertMyCode(int data){
-        Node new_node = new Node(data);
+    public void insertMyCode(T data){
+        Node<T> new_node = new Node<>(data);
         if (this.root == null){
             this.root = new_node;
             return;
         }
         // always start from root to check, as we need to make all the values that are less than root.data to the left subtree, and bigger one to the right subtrees.
-        Node currFinalNode = binaryInsertMyCode(this.root, data); // division from root to curr final node
+        Node<T> currFinalNode = binaryInsertMyCode(this.root, data); // division from root to curr final node
         // since the curr_node returned is the final node, we need to place the new node to either its right or left
-        if (new_node.data > currFinalNode.data){
+        if (new_node.data.compareTo(currFinalNode.data) > 0){
             currFinalNode.right = new_node;
         }
         else{ // new_node.data <= currFinalNode.data ; for the consistent approach as above on handling the same value
@@ -94,24 +103,24 @@ public class BST {
         }
     }
 
-    private Node insertBinary(Node currNode, int data){
-        Node new_node = new Node(data);
+    private Node<T> insertBinary(Node<T> currNode, T data){
+        Node<T> new_node = new Node<>(data);
 
         if (currNode == null){
             return new_node; // return new_node when reached node == null -- so this is the final node
         }
 
-        if (data > currNode.data){
+        if (data.compareTo(currNode.data) > 0){
             currNode.right = insertBinary(currNode.right, data);  // currNode.right calls own method to get its value in the next call. If the node.right is null then we will assign new_node; If node.right already existed, then we will return node.right, (before that we will call recursively if we havent findMyCode the node that is null).
         }
-        else if (data < currNode.data){
+        else if (data.compareTo(currNode.data) < 0){
             currNode.left = insertBinary(currNode.left, data);
         }
         return currNode;   // if currNode exists, then returned the original assigned value
         // it will still return this.root node if there exists this.root OR it returns back to node.right/left for node.right/left if it already existed
     }
 
-    public void insert(int data) {
+    public void insert(T data) {
         this.root = insertBinary(this.root, data);  // thus here we can assign rootNode to the returned value
     }
 
@@ -120,30 +129,30 @@ public class BST {
      - to findMyCode the target data, if found then return the Node (not necessarily final Node)
      - if non-exist then return final Node
      */
-    private Node binaryFindMyCode2(Node currNode, int data){
+    private Node<T> binaryFindMyCode2(Node<T> currNode, T data){
         // base case
         if(currNode == null){
             return null;    // not found
         }
-        else if (data == currNode.data){
+        else if (data.compareTo(currNode.data) == 0){
             return currNode;
         }
 
-        if (data > currNode.data){
-            return binaryFindMyCode(currNode.right, data);
+        if (data.compareTo(currNode.data) > 0){
+            return binaryFindMyCode2(currNode.right, data);
         }
         else{ // data <= currNode.data
-            return binaryFindMyCode(currNode.left, data);
+            return binaryFindMyCode2(currNode.left, data);
         }
     }
 
-    private Node binaryFindMyCode(Node currNode, int data){
+    private Node<T> binaryFindMyCode(Node<T> currNode, T data){
         // base case
-        if (data == currNode.data){
+        if (data.compareTo(currNode.data) == 0){
             return currNode;
         }
 
-        if (data > currNode.data){
+        if (data.compareTo(currNode.data) > 0){
             if (currNode.right != null){
             return binaryFindMyCode(currNode.right, data);
             }
@@ -157,15 +166,15 @@ public class BST {
         }
     }
 
-    public boolean findMyCode(int data){
+    public boolean findMyCode(T data){
         return binaryFindMyCode(this.root, data) != null; // this is better than binaryFindMyCode(this.root, data).data == data;
     }
 
     // traverse and having tracked previous node in order to adjust the prev node connection
-    private Node binaryDelMyCode(Node prevNode, Node currNode, int dataDel){
-        if (currNode.data == dataDel){
+    private Node<T> binaryDelMyCode(Node<T> prevNode, Node<T> currNode, T dataDel){
+        if (dataDel.compareTo(currNode.data)==0){
             if (currNode.right != null && currNode.left != null){
-                if(currNode.data > prevNode.data){
+                if(currNode.data.compareTo(prevNode.data) > 0){
                     prevNode.right = currNode.left;
                 }
                 else{ // currNode.data <= prevNode.data
@@ -173,11 +182,11 @@ public class BST {
                 }
                 // move the entire subtree to the most bottom of the other subtree
                 // in the code below, move the entire toDelNode.right to the bottom of toDelNode.left
-                Node last = binaryInsertMyCode(currNode.left, currNode.right.data);
+                Node<T> last = binaryInsertMyCode(currNode.left, currNode.right.data);
                 last.right = currNode.right;
             }
             else if (currNode.right != null){
-                if(currNode.data > prevNode.data){
+                if(currNode.data.compareTo(prevNode.data) > 0){
                     prevNode.right = currNode.right;
                 }
                 else { // currNode.data <= prevNode.data
@@ -185,7 +194,7 @@ public class BST {
                 }
             }
             else if (currNode.left != null){
-                if(currNode.data > prevNode.data){
+                if(currNode.data.compareTo(prevNode.data) > 0){
                     prevNode.right = currNode.left;
                 }
                 else { // currNode.data <= prevNode.data
@@ -193,7 +202,7 @@ public class BST {
                 }
             }
             else{
-                if(currNode.data > prevNode.data){
+                if(currNode.data.compareTo(prevNode.data) > 0){
                     prevNode.right = null;
                 }
                 else { // currNode.data <= prevNode.data
@@ -203,7 +212,7 @@ public class BST {
             return currNode;
         }
 
-        else if (dataDel > currNode.data){
+        else if (dataDel.compareTo(currNode.data)>0){
             if (currNode.right != null){
                 return binaryDelMyCode(currNode, currNode.right, dataDel);
             }
@@ -231,12 +240,12 @@ public class BST {
             b.2) (same like root.data got deleted) then move the entire toDel.left/right to the most bottom of left/right
           c) if both side null, cna pull any
      */
-    public void deleteMyCode(int data){
+    public void deleteMyCode(T data){
         // root case
-        if (this.root.data == data){
+        if (this.root.data.compareTo(data) == 0){
             if(root.right != null && root.left != null){
                 // move the entire subtree (right in this case) to the bottom of the chosen connected subtree (in this case: left)
-                Node last = binaryInsertMyCode(root.left, root.right.data);  // go to the most bottom by using the first node of the right subtree
+                Node<T> last = binaryInsertMyCode(root.left, root.right.data);  // go to the most bottom by using the first node of the right subtree
                 last.right = root.right;  // curr.right.data for sure > last.right.data
                 root = root.left;   // root = second element and remove original root
             }
@@ -254,7 +263,7 @@ public class BST {
         }
 
         if (findMyCode(data)){
-            if (data > root.data){
+            if (data.compareTo(root.data)> 0){
                 binaryDelMyCode(root, root.right, data);
             }
             else { // data <= root.data
@@ -273,7 +282,7 @@ public class BST {
      - node = node.left; minToMaxLeftMyCode(node); can be simplified to just minToMaxLeftMyCode(node.left)
 
      */
-    private void minToMaxLeftMyCode(Node node){
+    private void minToMaxLeftMyCode(Node<T> node){
         if (node.left != null){     // no need while because for every node propagated, it will check if there is left Node since we call the function again
             node = node.left;        // propagates to the left
             minToMaxLeftMyCode(node);         // reverse the order of output when it propagates to the end
@@ -290,7 +299,7 @@ public class BST {
     /* traverse from min to max
       - covering all kind of binary search tree (where some left node is >1 at the subtrees some right node is >1)
      */
-    public void inOrderMyCode(Node node){
+    public void inOrderMyCode(Node<T> node){
         if (node != null){
             minToMaxLeftMyCode(node);
 
@@ -306,7 +315,7 @@ public class BST {
     }
 
     // [BEST SIMPLIFIED METHOD] traverse from min to max covering all cases
-    public void inOrder (Node node){
+    public void inOrder (Node<T> node){
         if(node != null){
             inOrder(node.left);                 // traverse to most left
             System.out.print(" " + node.data); // print elements in a reverse manner output
@@ -316,7 +325,7 @@ public class BST {
     }
 
     // [BEST SIMPLIFIED METHOD] traverse from max to min covering all cases
-    public void backOrderMyCode(Node node){
+    public void backOrderMyCode(Node<T> node){
         if(node != null){
             backOrderMyCode(node.right);
             System.out.print(" " + node.data);
@@ -334,7 +343,7 @@ public class BST {
          --- without global counter, we can fix/change our code easier whenever needed.
      */
 
-    public int countLeavesMyCode(Node node) {
+    public int countLeavesMyCode(Node<T> node) {
 
         if (node != null){
             countLeavesMyCode(node.left);         // recursively traverse to the most left
@@ -346,7 +355,7 @@ public class BST {
         return this.leavesCounter;          // this responsible for returning the FINAL value to Main
     }
 
-    public int countLeaves(Node node) {
+    public int countLeaves(Node<T> node) {
         if (node == null) {
             return 0; // Base case: no leaves for a null node
         }
@@ -372,7 +381,7 @@ public class BST {
     /* THINGS LEARNED:  -- better ways at below
      - again, always try to avoid using global variable, that might lead to unintended side effects, especailly when calling this method multiplt times!
      */
-    public int countNodesAtKthLayerMyCode(Node node, int k){
+    public int countNodesAtKthLayerMyCode(Node<T> node, int k){
         this.layer ++; // root is the first layer AND every time function calls it traversed to a new layer
         if (node == null){
             this.layer --;  // go back one layer is node is null as function will exit which means the latest traverse is invalid
@@ -391,7 +400,7 @@ public class BST {
         return leftKLayerNodes + rightKLayerNodes;
     }
 
-    public int countNodesAtKthLayer(Node node, int startLayer, int k){
+    public int countNodesAtKthLayer(Node<T> node, int startLayer, int k){
         if (node == null){
             return 0;
         }
@@ -411,7 +420,7 @@ public class BST {
      b) calculate the traverse a bit like above to keep track the height (layer)
      Note: traverse all the path to find the longest path then track that
      */
-    public int heightMyCode(Node node, int startHeight){
+    public int heightMyCode(Node<T> node, int startHeight){
         if (node == null){ // means prev node is the deepest node
             return (startHeight - 1);  // return the last non-null node's height
         }
@@ -452,7 +461,7 @@ public class BST {
       a) we need a countNodes method
       b) then we need an algo to index the order of nodes accordingly from left to right at the same layer
      */
-    public int countNodes(Node node){
+    public int countNodes(Node<T> node){
         if (node == null){
             return 0;
         }
@@ -462,7 +471,7 @@ public class BST {
         - we can always label index in the way we need to help with the design of algo
          -- e.g: index to label according to the order you want to ensure the tree is complete
      */
-    public boolean isComplete(Node node, int index, int countNode){
+    public boolean isComplete(Node<T> node, int index, int countNode){
         if (node == null){      // end case where no more nodes
             return true;
         }
@@ -479,12 +488,12 @@ public class BST {
     // reference from https://www.geeksforgeeks.org/level-order-tree-traversal/
     void printLevelOrder()
     {
-        Queue<Node> queue = new LinkedList<Node>();
+        Queue<Node<T>> queue = new LinkedList<>();
         queue.add(root);
         while (!queue.isEmpty()) {
 
             // poll() removes the present head.
-            Node tempNode = queue.poll();
+            Node<T> tempNode = queue.poll();
             System.out.print(tempNode.data + " ");
 
             // Enqueue left child
@@ -500,16 +509,17 @@ public class BST {
     }
 
     public static void main(String[] args) {
-        BST test = new BST();
-        BST test2 = new BST();
+        BSTG<String> test = new BSTG<>();
+//        BSTG test2 = new BSTG();
 
-        test.insertMyCode(5);
-        test.insertMyCode(2);
-        test.insertMyCode(7);
+        test.insertMyCode("hi");
+        test.insertMyCode("a");
+        test.insertMyCode("b");
 //        test.insertMyCode();
-        test.insertMyCode(8);
-        test.insertMyCode(6);
-        test.insertMyCode(1);
+        test.insertMyCode("z");
+        test.insertMyCode("oo");
+        test.insertMyCode("bye");
+//        test.insertMyCode(2.3);
         test.printLevelOrder();
 //        test.insertMyCode(3);
 //        test.insertMyCode(2);
